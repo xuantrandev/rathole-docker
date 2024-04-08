@@ -31,4 +31,4 @@ jobs:
         password: ${{ secrets.DOCKERHUB_PASSWORD }}
     - name: Push Image to Docker Hub
       run: |
-        docker push rathole:latest
+        docker push xuantrandev/rathole:tagname
