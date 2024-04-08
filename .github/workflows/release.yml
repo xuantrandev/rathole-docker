@@ -11,9 +11,7 @@ jobs:
   build:
     runs-on: ubuntu-22.04
     steps:
-    - name: Checkout
-      uses: actions/checkout@main
-
+    - uses: actions/checkout@v3
     - name: Clone source code
       run: |
         git clone https://github.com/rapiz1/rathole
@@ -22,7 +20,7 @@ jobs:
       with:
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_PASSWORD }}
-    - uses: actions/checkout@v3
+
     - uses: docker/setup-qemu-action@v3
     - uses: docker/setup-buildx-action@v3
     - uses: docker/build-push-action@v5
