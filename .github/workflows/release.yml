@@ -11,9 +11,9 @@ jobs:
   build:
     runs-on: ubuntu-22.04
     steps:
-    - name: Get the version
-      id: vars
-      run: echo ::set-output name=tag::$(echo ${GITHUB_REF:10})
+    # - name: Get the version
+    #   id: vars
+    #   run: echo ::set-output name=tag::$(echo ${GITHUB_REF:10})
     - uses: actions/checkout@v3
     - name: Clone source code
       run: |
@@ -33,4 +33,5 @@ jobs:
         cache-from: type=gha
         cache-to: type=gha,mode=max
         push: true
-        tags: xuantrandev/rathole:latest, xuantrandev/rathole:${{steps.vars.outputs.tag}}
+        tags: xuantrandev/rathole:latest
+        # tags: xuantrandev/rathole:latest, xuantrandev/rathole:${{steps.vars.outputs.tag}}
