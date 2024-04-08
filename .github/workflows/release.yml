@@ -20,6 +20,7 @@ jobs:
     - name: Clone source code
       run: |
         git clone https://github.com/rapiz1/rathole
-        cd rathole
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
+      run: |
+        cd rathole
+        docker build . --file Dockerfile --tag my-image-name:$(date +%s)
