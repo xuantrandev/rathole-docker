@@ -11,6 +11,9 @@ jobs:
   build:
     runs-on: ubuntu-22.04
     steps:
+    - name: Get the version
+      id: vars
+      run: echo ::set-output name=tag::$(echo ${GITHUB_REF:10})
     - uses: actions/checkout@v3
     - name: Clone source code
       run: |
@@ -20,14 +23,14 @@ jobs:
       with:
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_PASSWORD }}
-
-    - uses: docker/setup-qemu-action@v3
+    # - uses: docker/setup-qemu-action@v3
     - uses: docker/setup-buildx-action@v3
     - uses: docker/build-push-action@v5
       with:
         context: ./rathole
-        platforms: linux/amd64,linux/arm64
+        # platforms: linux/amd64,linux/arm64
+        platforms: linux/arm64
         cache-from: type=gha
         cache-to: type=gha,mode=max
         push: true
-        tags: xuantrandev/rathole:latest
+        tags: xuantrandev/rathole:latest, xuantrandev/rathole:${{steps.vars.outputs.tag}}
