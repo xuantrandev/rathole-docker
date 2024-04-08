@@ -20,7 +20,7 @@ jobs:
     - name: Build the Docker image
       run: |
         cd rathole
-        docker build . --file Dockerfile -t rathole:latest
+        docker buildx build . --file Dockerfile -t rathole:latest
     # - name: Tag Image
     #   run: |
     #     docker tag rathole rathole:latest
@@ -31,4 +31,4 @@ jobs:
         password: ${{ secrets.DOCKERHUB_PASSWORD }}
     - name: Push Image to Docker Hub
       run: |
-        docker push rathole:latest
+        docker push xuantrandev/rathole:latest
