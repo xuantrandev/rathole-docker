@@ -1,0 +1,34 @@
+# This is a basic workflow to help you get started with Actions
+
+name: new release scanning
+on:
+  repository_dispatch:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 0 * * *'  # Run daily at midnight
+
+jobs:
+  check-releases:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          repository: 'rapiz1/rathole'  # Specify the repository name with owner (e.g., actions/checkout)
+          ref: 'main'               # Specify the branch, tag, or SHA to checkout
+          # token: ${{ secrets.GITHUB_TOKEN }}  # Personal access token (PAT) for fetching the repository (use encrypted secrets)
+
+      - name: Get latest tag
+        id: get-tag
+        run: |
+          latest_tag=$(git tag | sort --version-sort | tail -n1)
+          echo "::set-output name=tag::$latest_tag"
+
+      - name: Compare tags
+        run: |
+          current_tag=${{ github.ref_name }}
+          if [ "$current_tag" != "${{ steps.get-tag.outputs.tag }}" ]; then
+            echo "New release available!"
+          else
+            echo "No new releases."
+          fi
