@@ -24,13 +24,14 @@ jobs:
           ls
           # cd rathole
           latest_tag=$(git describe --tags --abbrev=0)
-          echo "::set-output name=tag::$latest_tag"
+          echo $latest_tag
+      #     echo "::set-output name=tag::$latest_tag"
 
-      - name: Compare tags
-        run: |
-          current_tag=${{ github.ref_name }}
-          if [ "$current_tag" != "${{ steps.get-release-tag.outputs.tag }}" ]; then
-            echo "New release tag available: ${{ steps.get-release-tag.outputs.tag }}"
-          else
-            echo "No new release tags."
-          fi
+      # - name: Compare tags
+      #   run: |
+      #     current_tag=${{ github.ref_name }}
+      #     if [ "$current_tag" != "${{ steps.get-release-tag.outputs.tag }}" ]; then
+      #       echo "New release tag available: ${{ steps.get-release-tag.outputs.tag }}"
+      #     else
+      #       echo "No new release tags."
+      #     fi
