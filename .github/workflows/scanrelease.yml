@@ -11,10 +11,10 @@ jobs:
   check-release-tag:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-        with:
-          repository: 'rapiz1/rathole'  # Specify the repository name with owner
+      # - name: Checkout repository
+      #   uses: actions/checkout@v4
+      #   with:
+      #     repository: 'rapiz1/rathole'  # Specify the repository name with owner
           # ref: 'main'                  # Specify the branch, tag, or SHA to checkout
           # token: ${{ secrets.GITHUB_TOKEN }}  # Personal access token (PAT) for fetching the repository (use encrypted secrets)
 
@@ -23,6 +23,8 @@ jobs:
         run: |
           ls
           # cd rathole
+          git clone https://github.com/rapiz1/rathole
+          cd rathole
           latest_tag=$(git describe --tags --abbrev=0)
           echo $latest_tag
       #     echo "::set-output name=tag::$latest_tag"
