@@ -21,6 +21,7 @@ jobs:
       - name: Get latest release tag
         id: get-release-tag
         run: |
+          ls
           cd rathole
           latest_tag=$(git describe --tags --abbrev=0)
           echo "::set-output name=tag::$latest_tag"
