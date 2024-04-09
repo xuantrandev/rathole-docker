@@ -18,17 +18,17 @@ jobs:
           ref: 'main'               # Specify the branch, tag, or SHA to checkout
           # token: ${{ secrets.GITHUB_TOKEN }}  # Personal access token (PAT) for fetching the repository (use encrypted secrets)
 
-      - name: Get latest tag
-        id: get-tag
+      - name: Get latest release tag
+        id: get-release-tag
         run: |
-          latest_tag=$(git tag | sort --version-sort | tail -n1)
+          latest_tag=$(git describe --tags --abbrev=0)
           echo "::set-output name=tag::$latest_tag"
 
       - name: Compare tags
         run: |
           current_tag=${{ github.ref_name }}
-          if [ "$current_tag" != "${{ steps.get-tag.outputs.tag }}" ]; then
-            echo "New release available!"
+          if [ "$current_tag" != "${{ steps.get-release-tag.outputs.tag }}" ]; then
+            echo "New release tag available!"
           else
-            echo "No new releases."
+            echo "No new release tags."
           fi
