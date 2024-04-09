@@ -8,14 +8,14 @@ on:
     - cron: '0 0 * * *'  # Run daily at midnight
 
 jobs:
-  check-releases:
+  check-release-tag:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          repository: 'rapiz1/rathole'  # Specify the repository name with owner (e.g., actions/checkout)
-          ref: 'main'               # Specify the branch, tag, or SHA to checkout
+          repository: 'rapiz1/rathole'  # Specify the repository name with owner
+          ref: 'main'                  # Specify the branch, tag, or SHA to checkout
           # token: ${{ secrets.GITHUB_TOKEN }}  # Personal access token (PAT) for fetching the repository (use encrypted secrets)
 
       - name: Get latest release tag
@@ -28,7 +28,7 @@ jobs:
         run: |
           current_tag=${{ github.ref_name }}
           if [ "$current_tag" != "${{ steps.get-release-tag.outputs.tag }}" ]; then
-            echo "New release tag available!"
+            echo "New release tag available: ${{ steps.get-release-tag.outputs.tag }}"
           else
             echo "No new release tags."
           fi
